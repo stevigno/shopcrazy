@@ -1447,6 +1447,7 @@ body {
  * Product Rating Stars
  * Width of a 1-Star = 16 - 1 = 15px
  */
+ /*
 .star {
   background: url(../images/rating-star/rating-star.png) 0 -16px repeat-x;
   display: inline-block;
@@ -1461,6 +1462,11 @@ body {
     left: 0;
     position: absolute;
     top: 0; }
+    */
+
+.rating-star i {
+    color: #ffb503!important;
+}
 
 /* Section-Maker component */
 /* Sub-component-1 */
@@ -1731,6 +1737,20 @@ body {
   width: 100%;
   transition: all .3s; }
   .text-field:focus {
+    outline: 0;
+    border-color: #292929; }
+
+/* Form control class */
+.form-control {
+  background-color: #ffffff;
+  border: 1px solid #eceff8;
+  color: #333333;
+  font-size: 14px;
+  height: 45px;
+  padding: 0 15px;
+  width: 100%;
+  transition: all .3s; }
+  .form-control:focus {
     outline: 0;
     border-color: #292929; }
 
@@ -2467,6 +2487,11 @@ body {
   .section-4-sku-information > .availability span + span {
     margin-left: 2px;
     color: #28a745; }
+  .section-4-sku-information > .unavailability, .section-4-sku-information .left {
+    font-size: 13px; }
+  .section-4-sku-information > .unavailability span + span {
+    margin-left: 2px;
+    color: #b72525; }
   .section-4-sku-information .left span + span {
     margin-left: 2px; }
 

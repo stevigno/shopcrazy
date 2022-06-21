@@ -5,139 +5,120 @@
 
 {% block content %}
 
-    <!-- Cart-Page -->
-    <div class="page-cart u-s-p-t-80">
+    <!-- Breadcrumb Begin -->
+     <div class="breadcrumb-option">
         <div class="container">
             <div class="row">
-                {% if not cart_items %}
-                <h2 class ="text-center">Your cart is empty</h2>
-                <br>
-                <div class="button-area">
-                    <a href="{% url 'store' %}" class="continue">Continue Shopping</a>
-                </div>
-                {% else %}
                 <div class="col-lg-12">
-                    <form>
-                        <!-- Products-List-Wrapper -->
-                        <div class="table-wrapper u-s-m-b-60">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Product</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th>Subtotal</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                {% for cart_item in cart_items %}
-                                    <tr>
-                                        <td>
-                                            <div class="cart-anchor-image">
-                                                <a href="single-product.html">
-                                                    <img src="{{ cart_item.product.image.url }}" alt="Product">
-                                                    <h6>{{ cart_item.product.product_name }}</h6>
-                                                </a>
-                                                <figcaption>
-                                                    <p class="text-muted small">
-                                                        {% if cart_item.variations.all %}
-                                                            {% for item in cart_item.variations.all %}
-                                                            {{ item.variation_category | capfirst }} : {{ item.variation_value  | capfirst  }} <br>
-                                                            {% endfor %}
-                                                        {% endif %}
-                                                    </p>
-                                                </figcaption>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="cart-price">
-                                    $.{{ cart_item.sub_total}}
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="cart-quantity">
-                                                <div class="quantity">
-                                                    <a class="minus-a" href="{% url 'remove_cart' cart_item.product.id  cart_item.id %}" data-min="1"></a>
-                                                    <input type="text" class="quantity-text-field" value="{{ cart_item.quantity}}">
-                                                    <form action="{% url 'add_cart' cart_item.product.id  %}" method="POST">
-                                    {% csrf_token %}
-                                    {% for item in cart_item.variations.all %}
-                                                        <input type="hidden" name ="{{ item.variation_category }}" value="{{item.variation_value }}">
-                                    {% endfor %}
-                                                        <button class="btn btn-light" type="submit" id="button-minus"> <i class="fa fa-plus"></i> </button>
-                                                    </form>
 
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="action-wrapper">
-                                                <a href="{% url 'remove_cart_item' cart_item.product.id cart_item.id %}"
-                                                   onclick="return confirm('Are you sure you want to remove this')" class="btn btn-danger">
-                                                    <i class="fas fa-trash"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- Products-List-Wrapper /- -->
-                        <!-- Coupon -->
-                        <div class="coupon-continue-checkout u-s-m-b-60">
-                            <div class="button-area">
-                                <a href="{% url 'home' %}" class="continue">Continue Shopping</a>
-                                <a href="{% url 'checkout' %}" class="checkout">Proceed to Checkout</a>
-                            </div>
-                        </div>
-                        <!-- Coupon /- -->
-                    </form>
-                    <!-- Billing -->
-                    <div class="calculation u-s-m-b-60">
-                        <div class="table-wrapper-2">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th colspan="2">Cart Totals</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <h3 class="calc-h3 u-s-m-b-0">Subtotal</h3>
-                                        </td>
-                                        <td>
-                                            <span class="calc-text">${{ total }}</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <h3 class="calc-h3 u-s-m-b-0" id="tax-heading">Tax</h3>
-                                            <span> (estimated for your country)</span>
-                                        </td>
-                                        <td>
-                                            <span class="calc-text">${{ tax}}</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <h3 class="calc-h3 u-s-m-b-0">Total</h3>
-                                        </td>
-                                        <td>
-                                            <span class="calc-text">${{ grand_total }}</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- Billing /- -->
                 </div>
-                {% endif %}
             </div>
         </div>
     </div>
-    <!-- Cart-Page /- -->
+    <!-- Breadcrumb End -->
+
+    <!-- Shop Cart Section Begin -->
+    <section class="shop-cart spad">
+        <div class="container">
+                {% if not cart_items %}
+                <h2 class ="text-center">Your cart is empty</h2>
+                <br>
+                <div class="text-center">
+                <a href="{% url 'store' %}" class="btn btn-outline-primary">Continue shopping</a>
+                </div>
+                {% else %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="shop__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                             {% for cart_item in cart_items %}
+                                <tr>
+                                    <td class="cart__product__item">
+                                        <img src="{{ cart_item.product.image.url }}" alt="">
+                                        <div class="cart__product__item__title">
+                                            <h6>{{ cart_item.product.product_name }}</h6>
+                                            <div class="rating">
+                                                {% if cart_item.variations.all %}
+                                                {% for item in cart_item.variations.all %}
+                                                {{ item.variation_category | capfirst }} : {{ item.variation_value  | capfirst  }} <br>
+                                                {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="cart__quantity">
+                                      <div class="col">
+                                        <div class="input-group input-spinner">
+                                            <div class="input-group-prepend">
+                                                <a href="{% url 'remove_cart' cart_item.product.id  cart_item.id %}" class="btn btn-light" type="button" id="button-minus" ><i class="fa fa-minus "></i></a>
+                                            </div>
+                                            <input type="text" class="form-control"  value="{{ cart_item.quantity}}" >
+                                            <div class="input-group-append">
+                                                <form action="{% url 'add_cart' cart_item.product.id  %}" method="POST">
+                                                    {% csrf_token %}
+                                                    {% for item in cart_item.variations.all %}
+                                                    <input type="hidden" name ="{{ item.variation_category }}" value="{{item.variation_value }}">
+                                                    {% endfor %}
+                                                    <button  type="submit" class="btn btn-light" id="button-minus" > <i class="fa fa-plus"></i> </button>
+                                                </form>
+                                            </div>
+                                          </div>
+                                      </div>
+                                    </td>
+                                    <td class="cart__total">$ {{ cart_item.sub_total}}</td>
+                                    <td class="cart__close">
+                                         <a href="{% url 'remove_cart_item' cart_item.product.id cart_item.id %}"
+                                            onclick="return confirm('Are you sure you want to remove this')">
+                                             <span class="icon_close"></span>
+                                         </a>
+                                    </td>
+                                </tr>
+                             {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="cart__btn">
+                        <a href="{% url 'store' %}">Continue Shopping</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="cart__btn update__btn">
+                        <a href="{% url 'home' %}"> BACK HOME</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="discount__content">
+                    </div>
+                </div>
+                <div class="col-lg-4 offset-lg-2">
+                    <div class="cart__total__procced">
+                        <h6>Cart total</h6>
+                        <ul>
+                            <li>Subtotal <span>$ {{ total }}</span></li>
+                            <li>Total <span>$ {{ grand_total }}</span></li>
+                        </ul>
+                        <a href="{% url 'checkout' %}" class="primary-btn">Proceed to checkout</a>
+                    </div>
+                </div>
+            </div>
+                {% endif %}
+        </div>
+    </section>
+    <!-- Shop Cart Section End -->
 
 {% endblock %}
