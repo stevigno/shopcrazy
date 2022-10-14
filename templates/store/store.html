@@ -3,200 +3,210 @@
 
 {% block content %}
 
-
-<section class="section-pagetop bg">
-    <div class="container">
-        {% if 'search' in request.path %}
-        
-        <h2 class="title-page">{{ 'Search results' }}</h2>
-        {% else %}
-        <h2 class="title-page">BRoShop Store</h2>
-        {% endif %}
-    </div> <!-- container //  -->
-    </section>
-    <!-- ========================= SECTION INTRO END// ========================= -->
-    
-    <!-- ========================= SECTION CONTENT ========================= -->
-    <section class="section-content padding-y">
-    <div class="container">
-    
-    <div class="row">
-        <aside class="col-md-3">
-            
-    <div class="card">
-        <article class="filter-group">
-            <header class="card-header">
-                <a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
-                    <i class="icon-control fa fa-chevron-down"></i>
-                    <h6 class="title">Categories</h6>
-                </a>
-            </header>
-            <div class="filter-content collapse show" id="collapse_1" style="">
-                <div class="card-body">
-                    
-                    <ul class="list-menu">
-                        <li><a href="{% url 'store' %}">All Products.</a></li>
-                        {% for category in links %}
-                    <li><a href="{{category.get_url }}">{{ category.category_name }}  </a></li>
-                    {% endfor %}
-                    </ul>
-    
-                </div> <!-- card-body.// -->
-            </div>
-        </article> <!-- filter-group  .// -->
-        <article class="filter-group">
-            <header class="card-header">
-                <a href="#" data-toggle="collapse" data-target="#collapse_4" aria-expanded="true" class="">
-                    <i class="icon-control fa fa-chevron-down"></i>
-                    <h6 class="title">Sizes </h6>
-                </a>
-            </header>
-            <div class="filter-content collapse show" id="collapse_4" style="">
-                <div class="card-body">
-                  <label class="checkbox-btn">
-                    <input type="checkbox">
-                    <span class="btn btn-light"> XS </span>
-                  </label>
-    
-                  <label class="checkbox-btn">
-                    <input type="checkbox">
-                    <span class="btn btn-light"> SM </span>
-                  </label>
-    
-                  <label class="checkbox-btn">
-                    <input type="checkbox">
-                    <span class="btn btn-light"> LG </span>
-                  </label>
-    
-                  <label class="checkbox-btn">
-                    <input type="checkbox">
-                    <span class="btn btn-light"> XXL </span>
-                  </label>
-            </div><!-- card-body.// -->
-            </div>
-        </article> <!-- filter-group .// -->
-        
-        <article class="filter-group">
-            <header class="card-header">
-                <a href="#" data-toggle="collapse" data-target="#collapse_3" aria-expanded="true" class="">
-                    <i class="icon-control fa fa-chevron-down"></i>
-                    <h6 class="title">Price range </h6>
-                </a>
-            </header>
-            <div class="filter-content collapse show" id="collapse_3" style="">
-                <div class="card-body">
-                    
-                    <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <label>Min</label>
-                      <!-- <input class="form-control" placeholder="$0" type="number"> -->
-                          <select class="mr-2 form-control">
-                            <option value="0">$0</option>
-                            <option value="50">$50</option>
-                            <option value="100">$100</option>
-                            <option value="150">$150</option>
-                            <option value="200">$200</option>
-                            <option value="500">$500</option>
-                            <option value="1000">$1000</option>
-                        </select>
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__links">
+                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+                        <span>Shop</span>
                     </div>
-                    <div class="form-group text-right col-md-6">
-                      <label>Max</label>
-                          <select class="mr-2 form-control">
-                            <option value="50">$50</option>
-                            <option value="100">$100</option>
-                            <option value="150">$150</option>
-                            <option value="200">$200</option>
-                            <option value="500">$500</option>
-                            <option value="1000">$1000</option>
-                            <option value="2000">$2000+</option>
-                        </select>
-                    </div>
-                    </div> <!-- form-row.// -->
-                    <button class="btn btn-block btn-primary">Apply</button>
-                </div><!-- card-body.// -->
+                </div>
             </div>
-        </article> <!-- filter-group .// -->
-        
-    </div> <!-- card.// -->
-    
-        </aside> <!-- col.// -->
-        <main class="col-md-9">
-    
-    <header class="border-bottom mb-4 pb-3">
-            <div class="form-inline">
-                <span class="mr-md-auto"><b>{{ product_count}} </b>tems Found</span>
-                
-            </div>
-    </header><!-- sect-heading -->
-    
-    <div class="row">
-    {% if products %}
-        {% for product in products %}
-        <div class="col-md-4"> 
-            <figure class="card card-product-grid">
-                <div class="img-wrap"> 
-                    
-                    <a href = "{{ product.get_url }}"><img src="{{ product.image.url }}"></a>
-                    
-                </div> <!-- img-wrap.// -->
-                <figcaption class="info-wrap">
-                    <div class="fix-height">
-                        <a href="{{  cart_item.product.get_url }}" class="title">{{ product.product_name }}</a>
-                        <div class="price-wrap mt-2">
-                            <span class="price">${{ product.price }}</span>
-                        </div> <!-- price-wrap.// -->
-                    </div>
-                    <a href="{{product.get_url}}" class="btn btn-block btn-primary">View Details</a>
-                </figcaption>
-            </figure>
-        </div> <!-- col.// -->
-        {% endfor %}
-    {% else %}
-        <div class="col-md-12">
-            <h3>No products found</h3>
         </div>
-    {% endif %}
-    </div> <!-- row end.// -->
-
-    <nav class="mt-4" aria-label="Page navigation sample">
-        {% if products.has_other_pages %}
-    
-        <ul class="pagination">
-            {% if products.has_previous %}
-        <li class="page-item "><a class="page-link" href="?page={{ products.previous_page_number}}">Previous</a></li>
-        {% else %}
-        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-        {% endif %}
-
-        {% for i in products.paginator.page_range %}
-            {% if products.number == i %}
-        <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
-            {% else %}
-        <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
-            {% endif %}
-        {% endfor %}
-
-        {% if products.has_next %}
-        <li class="page-item"><a class="page-link" href="?page={{ products.next_page_number}}">Next</a></li>
-        {% else %}
-        <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-        {% endif %}
-        </ul>
-        
-    {% endif %}
-    </nav>
-
-    
-        </main> <!-- col.// -->
-    
     </div>
-    
-    </div> <!-- container .//  -->
+    <!-- Breadcrumb End -->
+
+    <!-- Shop Section Begin -->
+    <section class="shop spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3">
+                    <div class="shop__sidebar">
+                        <div class="sidebar__categories">
+                            <div class="section-title">
+                                <h4>Categories</h4>
+                            </div>
+                            <div class="categories__accordion">
+                                <div class="accordion" id="accordionExample">
+                                    <div class="card">
+                                        <div class="card-heading active">
+                                            <a data-toggle="collapse" data-target="#collapseOne">All Products</a>
+                                        </div>
+                                        <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                                            <div class="card-body">
+                                                <ul>
+                                                    {% for category in links %}
+                                                    <li><a href="{{category.get_url }}">{{ category.category_name }} </a></li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sidebar__filter">
+                            <div class="section-title">
+                                <h4>Shop by price</h4>
+                            </div>
+                            <div class="filter-range-wrap">
+                                <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
+                                data-min="30" data-max="9999"></div>
+                                <div class="range-slider">
+                                    <div class="price-input">
+                                        <p>Price:</p>
+                                        <input type="text" id="minamount">
+                                        <input type="text" id="maxamount">
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#">Filter</a>
+                        </div>
+                        <div class="sidebar__sizes">
+                            <div class="section-title">
+                                <h4>Shop by size</h4>
+                            </div>
+                            <div class="size__list">
+                                <label for="xxs">
+                                    xxs
+                                    <input type="checkbox" id="xxs">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="xs">
+                                    xs
+                                    <input type="checkbox" id="xs">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="xss">
+                                    xs-s
+                                    <input type="checkbox" id="xss">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="s">
+                                    s
+                                    <input type="checkbox" id="s">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="m">
+                                    m
+                                    <input type="checkbox" id="m">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="ml">
+                                    m-l
+                                    <input type="checkbox" id="ml">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="l">
+                                    l
+                                    <input type="checkbox" id="l">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="xl">
+                                    xl
+                                    <input type="checkbox" id="xl">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="sidebar__color">
+                            <div class="section-title">
+                                <h4>Shop by size</h4>
+                            </div>
+                            <div class="size__list color__list">
+                                <label for="black">
+                                    Blacks
+                                    <input type="checkbox" id="black">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="whites">
+                                    Whites
+                                    <input type="checkbox" id="whites">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="reds">
+                                    Reds
+                                    <input type="checkbox" id="reds">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="greys">
+                                    Greys
+                                    <input type="checkbox" id="greys">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="blues">
+                                    Blues
+                                    <input type="checkbox" id="blues">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="beige">
+                                    Beige Tones
+                                    <input type="checkbox" id="beige">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="greens">
+                                    Greens
+                                    <input type="checkbox" id="greens">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="yellows">
+                                    Yellows
+                                    <input type="checkbox" id="yellows">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-9">
+                    <div class="row">
+                    {% if products %}
+                        {% for product in products %}
+                        <div class="col-lg-4 col-md-6">
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg" data-setbg="{{ product.image.url }}">
+                                    <ul class="product__hover">
+                                        <li><a href="{{ product.image.url }}" class="image-popup"><span class="arrow_expand"></span></a></li>
+                                        <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                        <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6><a href="{{ product.get_url }}">{{ product.product_name }}</a></h6>
+                                    <div class="rating">
+                                    </div>
+                                    <div class="product__price">$ {{ product.price }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                    <div class="col-md-12">
+                        <h3>No products found</h3>
+                    </div>
+                {% endif %}
+
+            {% if products.has_other_pages %}
+                        <div class="col-lg-12 text-center">
+                            <div class="pagination__option">
+                                 {% for i in products.paginator.page_range %}
+                                    {% if products.number == i %}
+                                <a class="page-link" href="#">{{i}}</a>
+                                    {% else %}
+                                <a class="page-link" href="?page={{i}}">{{i}}</a>
+                                    {% endif %}
+                                {% endfor %}
+                                <a href="#"><i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+            {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-    <!-- ========================= SECTION CONTENT END// ========================= -->
-    
-
-
+    <!-- Shop Section End -->
 
 {% endblock %}

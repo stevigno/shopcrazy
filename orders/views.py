@@ -199,7 +199,8 @@ def order_complete(request):
     except(Payment.DoesNotExist, NewOrder.DoesNotExist):
         return redirect('home')
         
-    
+
+
     
             
             

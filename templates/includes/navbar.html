@@ -31,20 +31,10 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="header__right">
-                        <div class="header__right__auth">
                             {% if user.id is None %}
+                        <div class="header__right__auth">
                             <a href="{% url 'login' %}">Login</a>
-                            <a href="{% url 'register' %}">Register</a>
-                            {% else %}
-                                {% if user.id == user.is_superadmin %}
-                            <li><a href="{% url 'admin_home' %}"> <i class="fa-solid fa-users"></i> </span>
-                                <div class="tip"></div>
-                            </a></li>
-                             <a href="{% url 'logout' %}"> <i class="fas fa-sign-out-alt u-s-m-r-8"></i> </a>
-                                {% else %}
-                            <a href="{% url 'logout' %}"> <i class="fas fa-sign-out-alt u-s-m-r-8"></i> </a>
-                                {% endif %}
-                            {% endif %}
+                            <a href="{% url 'register' %}">Registers</a>
                         </div>
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>
@@ -54,6 +44,19 @@
                                 <div class="tip">{{ cart_count }}</div>
                             </a></li>
                         </ul>
+                            {% else %}
+                         <div class="header__right__auth">
+                            <a href="{% url 'logout' %}"> <span class="icon_lock-open"> </span></a>
+                        </div>
+                        <ul class="header__right__widget">
+                            <li><span class="icon_search search-switch"></span></li>
+                            <li><a href="{% url 'dashboard' %}"><span class="icon_profile"></span>
+                            </a></li>
+                            <li><a href="{% url 'cart' %}"><span class="icon_bag_alt"></span>
+                                <div class="tip">{{ cart_count }}</div>
+                            </a></li>
+                        </ul>
+                            {% endif %}
                     </div>
                 </div>
             </div>

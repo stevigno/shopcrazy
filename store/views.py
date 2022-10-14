@@ -102,7 +102,8 @@ def submit_review(request,product_id):
                 return redirect(url)
         except Exception as e:
             raise e
-            
+
+
         
 
 
